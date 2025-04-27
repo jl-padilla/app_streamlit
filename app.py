@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 # Carga y procesamiento de datos
-df = pd.read_csv("data/datos_rsa_limpio_final.csv", sep= ";")
+df = pd.read_csv("data/datos_rsa_limpio_final.csv")
 
 # Título de la aplicación
 st.header(f"My Streamlit APP - Project RSA202")
