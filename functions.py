@@ -12,9 +12,7 @@ def home(df):
         # with st.echo(code_location='below'):
         #     st.write("Welcome to app RSA2025. \
         #         This is an app to visualize the annual call for applications for the 2025 Aragon Social Responsibility Seal")
-            st.dataframe(df_clasificado)
-    with st.expander("Datos clasificados(100):"):
-         st.dataframe(df)
+        st.dataframe(df)
 
 def map(df):
     tooltip = {

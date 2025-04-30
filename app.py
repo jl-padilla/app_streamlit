@@ -55,7 +55,7 @@ with st.expander("About the proyect", expanded=True):
 #     except:
 #         st.write("File format not recognized.")
 
-st.dataframe(df)
+# st.dataframe(df)
 
 # Sistema de navegación
 option = st.sidebar.selectbox(
@@ -65,8 +65,8 @@ option = st.sidebar.selectbox(
 
 # Lógica para navegar entre las páginas
 if option == "Home":
-    functions.home(df)
+    functions.home(df_clasificado)
 elif option=="Map":
-    functions.map(df)
+    functions.map(df_clasificado)
 elif option=="Charts":
     functions.charts(df)
