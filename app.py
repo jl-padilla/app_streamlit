@@ -17,15 +17,26 @@ st.set_page_config(
 
 # Carga y procesamiento de datos
 df = pd.read_csv("data/datos_rsa_limpio_final.csv")
+df_clasificado = df[["id_cliente",
+                      "tipo_organizacion",
+                      "year_3", 
+                      "empleados_2", 
+                      "prioridad_medioambiental", 
+                      "latitud_num", 
+                      "long_num",
+                      "impacto_actividad", 
+                      "mejora", 
+                      "clasificacion" ]]
+
 
 # Título de la aplicación
 st.header(f"My Streamlit APP - Project RSA202")
 
-st.image("img/rsa.jpg", width=700)
+# st.image("img/rsa.jpg", width=700)
 
 
 
-with st.expander("About the data", expanded=True):
+with st.expander("About the proyect", expanded=True):
     st.write(
         "A company specializing in environmental business consulting wants to compile a list of potential clients for its marketing department at its headquarters in Aragon."
         "The annual call for applications for the 2025 Aragon Social Responsibility Seal is a recognition for companies in Aragon. " \

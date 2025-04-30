@@ -8,11 +8,13 @@ def home(df):
          caption= "Follow me on LinkedIn https://www.linkedin.com/in/joseluispadillavillanova/",
          width= 1000)
     
-    with st.expander("Description:"):
-        with st.echo(code_location='below'):
-            st.write("Welcome to app RSA2025. \
-                This is an app to visualize the annual call for applications for the 2025 Aragon Social Responsibility Seal")
-            st.dataframe(df)
+    with st.expander("Datos iniciales(1570):"):
+        # with st.echo(code_location='below'):
+        #     st.write("Welcome to app RSA2025. \
+        #         This is an app to visualize the annual call for applications for the 2025 Aragon Social Responsibility Seal")
+            st.dataframe(df_clasificado)
+    with st.expander("Datos clasificados(100):"):
+         st.dataframe(df)
 
 def map(df):
     tooltip = {
@@ -25,7 +27,7 @@ def map(df):
 
     layer = pdk.Layer(
         "ScatterplotLayer",
-        data=df,
+        data=df_clasificado,
         get_position=["LONGITUD", "LATITUD"],
         pickable=True,
         opacity=0.8,
@@ -36,8 +38,8 @@ def map(df):
 
     # Set the view state
     view_state = pdk.ViewState(
-        longitude=df["LONGITUD"].mean(),
-        latitude=df["LATITUD"].mean(),
+        longitude=df_clasificado["long_num"].mean(),
+        latitude=df_clasificado["latitud_num"].mean(),
         zoom=10,  # Slightly reduced zoom to see more area
         pitch=0
     )
