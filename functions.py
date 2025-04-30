@@ -16,7 +16,7 @@ def home(df):
 
 def map(df):
     tooltip = {
-        "html": "<b>Ubicación:</b> {UBICACION}<br><b>Operador:</b> {OPERADOR}",
+        "html": "<b>Ubicación:</b> {nombre_organizacion}<br><b>Dirección:</b> {direccion}<br><b>Operador:</b> https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}<br>",
         "style": {
             "backgroundColor": "salmon",
             "color": "white"
