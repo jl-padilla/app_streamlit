@@ -25,7 +25,7 @@ def map(df):
 
     layer = pdk.Layer(
         "ScatterplotLayer",
-        data=df_clasificado,
+        data=df,
         get_position=["LONGITUD", "LATITUD"],
         pickable=True,
         opacity=0.8,
@@ -36,8 +36,8 @@ def map(df):
 
     # Set the view state
     view_state = pdk.ViewState(
-        longitude=df_clasificado["long_num"].mean(),
-        latitude=df_clasificado["latitud_num"].mean(),
+        longitude=df["long_num"].mean(),
+        latitude=df["latitud_num"].mean(),
         zoom=10,  # Slightly reduced zoom to see more area
         pitch=0
     )
