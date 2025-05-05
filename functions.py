@@ -17,11 +17,16 @@ def home(df):
 
 
 def map(df):
-    # Agregar filtro interactivo en Streamlit
+    # Mostrar el slider de prioridad ambiental **antes de filtrar los datos**
     prioridad_minima = st.slider("Filtrar por prioridad ambiental", min_value=1, max_value=10, value=1)
 
-    # Filtrar el dataframe según la prioridad ambiental
+    # Filtrar el dataframe según el valor seleccionado
     df_filtrado = df[df["prioridad_medioambiental"] >= prioridad_minima]
+
+    # Si el dataframe filtrado está vacío, evitar errores
+    if df_filtrado.empty:
+        st.warning("No hay datos con la prioridad ambiental seleccionada.")
+        return
 
     # Definir tooltip con información clave
     tooltip = {
@@ -64,8 +69,9 @@ def map(df):
         map_style="mapbox://styles/mapbox/light-v9"
     )
 
-    # Mostrar mapa en Streamlit
+    # Mostrar el mapa en Streamlit correctamente
     st.pydeck_chart(deck)
+
 
 
 def charts(df):
