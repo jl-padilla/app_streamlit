@@ -17,7 +17,13 @@ def home(df):
 
 
 def map(df):
-    # Tooltip interactivo con enlace
+    # Agregar filtro interactivo en Streamlit
+    prioridad_minima = st.slider("Filtrar por prioridad ambiental", min_value=1, max_value=10, value=1)
+
+    # Filtrar el dataframe según la prioridad ambiental
+    df_filtrado = df[df["prioridad_medioambiental"] >= prioridad_minima]
+
+    # Definir tooltip con información clave
     tooltip = {
         "html": """
         <b>Ubicación:</b> {nombre_organizacion}<br>
@@ -30,23 +36,23 @@ def map(df):
         }
     }
 
-    # Capa de puntos en el mapa
+    # Crear capa del mapa con puntos filtrados
     layer = pdk.Layer(
         "ScatterplotLayer",
-        data=df,
+        data=df_filtrado,
         get_position=["long_num", "latitud_num"],
         pickable=True,
         opacity=0.8,
         filled=True,
-        get_fill_color=[255, 0, 0, 200],  # Rojo para mayor visibilidad
-        radius_min_pixels=5,  
+        get_fill_color=[255, 255 - (df_filtrado["prioridad_medioambiental"] * 25), 0, 200],  # Color dinámico según prioridad
+        radius_min_pixels=5,
     )
 
-    # Estado de la vista del mapa
+    # Definir estado de la vista
     view_state = pdk.ViewState(
         longitude=df["long_num"].mean(),
         latitude=df["latitud_num"].mean(),
-        zoom=10, 
+        zoom=10,
         pitch=0
     )
 
@@ -58,7 +64,7 @@ def map(df):
         map_style="mapbox://styles/mapbox/light-v9"
     )
 
-    # Mostrar el mapa en Streamlit
+    # Mostrar mapa en Streamlit
     st.pydeck_chart(deck)
 
 
