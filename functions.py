@@ -14,15 +14,23 @@ def home(df):
         #         This is an app to visualize the annual call for applications for the 2025 Aragon Social Responsibility Seal")
         st.dataframe(df)
 
+
+
 def map(df):
+    # Tooltip interactivo con enlace
     tooltip = {
-        "html": "<b>Ubicación:</b>{nombre_organizacion}<br><b>Dirección:</b>{direccion}<br><b>Operador:</b> https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}<br>",
+        "html": """
+        <b>Ubicación:</b> {nombre_organizacion}<br>
+        <b>Dirección:</b> {direccion}<br>
+        <b>Operador:</b> <a href='https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' target='_blank'>Ver detalles</a><br>
+        """,
         "style": {
             "backgroundColor": "salmon",
             "color": "white"
         }
     }
 
+    # Capa de puntos en el mapa
     layer = pdk.Layer(
         "ScatterplotLayer",
         data=df,
@@ -30,28 +38,29 @@ def map(df):
         pickable=True,
         opacity=0.8,
         filled=True,
-        get_fill_color=[255, 0, 0, 200],  # Add a visible color (red)
-        radius_min_pixels=5,  # Ensure minimum size for visibility
+        get_fill_color=[255, 0, 0, 200],  # Rojo para mayor visibilidad
+        radius_min_pixels=5,  
     )
 
-    # Set the view state
+    # Estado de la vista del mapa
     view_state = pdk.ViewState(
         longitude=df["long_num"].mean(),
         latitude=df["latitud_num"].mean(),
-        zoom=10,  # Slightly reduced zoom to see more area´nhb
+        zoom=10, 
         pitch=0
     )
 
-    # Create the deck
+    # Renderizar el mapa con pydeck
     deck = pdk.Deck(
         layers=[layer],
         initial_view_state=view_state,
         tooltip=tooltip,
-        map_style="mapbox://styles/mapbox/light-v9"  # Add a map style
+        map_style="mapbox://styles/mapbox/light-v9"
     )
 
-    # Display the map in Streamlit
+    # Mostrar el mapa en Streamlit
     st.pydeck_chart(deck)
+
 
 def charts(df):
     left, right = st.columns(2)
