@@ -19,32 +19,33 @@ def home(df):
 def map(df):
     # Mostrar el slider de seleccion **antes de filtrar los datos**
     prioridad_minima = st.slider("Filtrar por la prioridad ambiental que determina la entidad", min_value=1, max_value=10, value=1)
-    selec_tipo_organizacion = st.selectbox("Seleccionar tipo de organización", df["tipo_organizacion"].unique())
-    antiguedad = st.selectbox("Seleccionar antiguedad de la entidad", df["year_3"].unique())
-    selec_impacto = st.selectbox("Seleccionar impacto de la actividad", df["impacto_actividad"].unique())
-    selec_mejora = st.selectbox("Seleccionar mejora", df["mejora"].unique())
+    selec_tipo_organizacion = st.multiselect("Seleccionar tipo de organización", 
+                                            options = sorted(df["tipo_organizacion"].dropna().unique()),
+                                            default = sorted(df["tipo_organizacion"].dropna().unique()))
+    antiguedad = st.multiselect("Seleccionar antiguedad de la entidad",
+                                options = sorted(df["year_3"].dropna().unique()),
+                                default = sorted(df["year_3"].dropna().unique()))
+    selec_impacto = st.multiselect("Seleccionar impacto de la actividad",
+                                   options = sorted(df["impacto_recuento"].dropna()unique()),
+                                   default = sorted(df["impacto_recuento"].dropna().unique()))
+    selec_mejora = st.multiselect("Seleccionar mejora", 
+                                  options = sorted(df["mejora"].dropna().unique()),
+                                    default = sorted(df["mejora"].dropna().unique()))
 
 
     # Filtrar el dataframe con las condiciones seleccionadas
     df_filtrado = df[
         (df["prioridad_medioambiental"] >= prioridad_minima) &
-        (df["tipo_organizacion"] == selec_tipo_organizacion) &
-        (df["year_3"] == antiguedad) &
-        (df["impacto_actividad"] == selec_impacto) &
-        (df["mejora"] == selec_mejora)
-    ][["id_cliente",
-        "id_formulario",
-        "tipo_organizacion",
-        "nombre_organizacion",
-        "direccion_completa",
-        "year_3", 
-        "empleados_2", 
-        "prioridad_medioambiental", 
-        "latitud_num", 
-        "long_num",
-        "impacto_actividad", 
-        "mejora", 
-        "clasificacion"]]
+        (df["tipo_organizacion"].isin(selec_tipo_organizacion)) &
+        (df["year_3"].isin(antiguedad)) &
+        (df["impacto_recuento"].isin(selec_impacto)) &
+        (df["mejora_recuento"].isin(selec_mejora))
+    ]
+    
+    # Mostrar el número de entidades y la suma de empleados
+    num_entidades = df_filtrado.shape[0]
+    st.write(f"🔹 **Número total de entidades que cumplen la selección:** {num_entidades}")
+
 
     # Si el dataframe filtrado está vacío, evitar errores
     if df_filtrado.empty:

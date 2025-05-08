@@ -27,8 +27,10 @@ df_clasificado = df[["id_cliente",
                       "prioridad_medioambiental", 
                       "latitud_num", 
                       "long_num",
-                      "impacto_actividad", 
-                      "mejora", 
+                      "impacto_actividad",
+                      "impacto_recuento", 
+                      "mejora",
+                      "mejora_recuento" 
                       "clasificacion" ]]
 
 
