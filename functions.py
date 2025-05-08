@@ -29,8 +29,8 @@ def map(df):
                                    options = sorted(df["impacto_recuento"].dropna().unique()),
                                    default = sorted(df["impacto_recuento"].dropna().unique()))
     selec_mejora = st.multiselect("Seleccionar mejora", 
-                                  options = sorted(df["mejora"].dropna().unique()),
-                                    default = sorted(df["mejora"].dropna().unique()))
+                                  options = sorted(df["mejora_recuento"].dropna().unique()),
+                                    default = sorted(df["mejora_recuento"].dropna().unique()))
 
 
     # Filtrar el dataframe con las condiciones seleccionadas

@@ -30,7 +30,7 @@ df_clasificado = df[["id_cliente",
                       "impacto_actividad",
                       "impacto_recuento", 
                       "mejora",
-                      "mejora_recuento" 
+                      "mejora_recuento", 
                       "clasificacion" ]]
 
 
