@@ -76,9 +76,11 @@ def map(df):
         "ScatterplotLayer",
         data=df_filtrado,
         get_position=["long_num", "latitud_num"],
-        get_radius=50,
-        get_fill_color=[255,100,100,200],
-        pickable=True
+        pickable=True,
+        opacity=0.8,
+        filled=True,
+        get_fill_color=[255, 0, 0, 200],  # Add a visible color (red)
+        radius_min_pixels=5,  # Ensure minimum size for visibility
     )
 
     # Definir estado de la vista
