@@ -17,22 +17,45 @@ def home(df):
 
 
 def map(df):
-    # Mostrar el slider de prioridad ambiental **antes de filtrar los datos**
-    prioridad_minima = st.slider("Filtrar por prioridad ambiental", min_value=1, max_value=10, value=1)
+    # Mostrar el slider de seleccion **antes de filtrar los datos**
+    prioridad_minima = st.slider("Filtrar por la prioridad ambiental que determina la entidad", min_value=1, max_value=10, value=1)
+    selec_tipo_organizacion = st.selectbox("Seleccionar tipo de organización", df["tipo_organizacion"].unique())
+    antiguedad = st.selectbox("Seleccionar antiguedad de la entidad", df["year_3"].unique())
+    selec_impacto = st.selectbox("Seleccionar impacto de la actividad", df["impacto_actividad"].unique())
+    selec_mejora = st.selectbox("Seleccionar mejora", df["mejora"].unique())
 
-    # Filtrar el dataframe según el valor seleccionado
-    df_filtrado = df[df["prioridad_medioambiental"] >= prioridad_minima]
+
+    # Filtrar el dataframe con las condiciones seleccionadas
+    df_filtrado = df[
+        (df["prioridad_medioambiental"] >= prioridad_minima) &
+        (df["tipo_organizacion"] == selec_tipo_organizacion) &
+        (df["year_3"] == antiguedad) &
+        (df["impacto_actividad"] == selec_impacto) &
+        (df["mejora"] == selec_mejora)
+    ][["id_cliente",
+        "id_formulario",
+        "tipo_organizacion",
+        "nombre_organizacion",
+        "direccion_completa",
+        "year_3", 
+        "empleados_2", 
+        "prioridad_medioambiental", 
+        "latitud_num", 
+        "long_num",
+        "impacto_actividad", 
+        "mejora", 
+        "clasificacion"]]
 
     # Si el dataframe filtrado está vacío, evitar errores
     if df_filtrado.empty:
-        st.warning("No hay datos con la prioridad ambiental seleccionada.")
+        st.warning("No hay datos con la seleccion.")
         return
 
     # Definir tooltip con información clave
     tooltip = {
         "html": """
         <b>Ubicación:</b> {nombre_organizacion}<br>
-        <b>Dirección:</b> {direccion}<br>
+        <b>Dirección:</b> {direccion_completa}<br>
         <b>Operador:</b> <a href='https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' target='_blank'>Ver detalles</a><br>
         """,
         "style": {
@@ -46,17 +69,15 @@ def map(df):
         "ScatterplotLayer",
         data=df_filtrado,
         get_position=["long_num", "latitud_num"],
-        pickable=True,
-        opacity=0.8,
-        filled=True,
-        get_fill_color=[255, 255 - (df_filtrado["prioridad_medioambiental"] * 25), 0, 200],  # Color dinámico según prioridad
-        radius_min_pixels=5,
+        get_radius=50,
+        get_fill_color=[255,100,100,200],
+        pickable=True
     )
 
     # Definir estado de la vista
     view_state = pdk.ViewState(
-        longitude=df["long_num"].mean(),
-        latitude=df["latitud_num"].mean(),
+        longitude=df_filtrado["long_num"].mean(),
+        latitude=df_filtrado["latitud_num"].mean(),
         zoom=10,
         pitch=0
     )
