@@ -23,23 +23,29 @@ def map(df):
                                             options = sorted(df["tipo_organizacion"].dropna().unique()),
                                             default = sorted(df["tipo_organizacion"].dropna().unique()))
     antiguedad = st.multiselect("Seleccionar antiguedad de la entidad",
-                                options = sorted(df["year_3"].dropna().unique()),
-                                default = sorted(df["year_3"].dropna().unique()))
+                                min_value= 1542,
+                                max_value= 2024,
+                                value = 2024
+                                )
     selec_impacto = st.multiselect("Seleccionar impacto de la actividad",
-                                   options = sorted(df["impacto_recuento"].dropna().unique()),
-                                   default = sorted(df["impacto_recuento"].dropna().unique()))
+                                   min_value = 6,
+                                   max_value = 1896,
+                                   value = 1896
+                                   )
     selec_mejora = st.multiselect("Seleccionar mejora", 
-                                  options = sorted(df["mejora_recuento"].dropna().unique()),
-                                    default = sorted(df["mejora_recuento"].dropna().unique()))
+                                  min_value = 1,
+                                  max_value = 122,
+                                  value = 122
+                                  )
 
 
     # Filtrar el dataframe con las condiciones seleccionadas
     df_filtrado = df[
         (df["prioridad_medioambiental"] >= prioridad_minima) &
         (df["tipo_organizacion"].isin(selec_tipo_organizacion)) &
-        (df["year_3"].isin(antiguedad)) &
-        (df["impacto_recuento"].isin(selec_impacto)) &
-        (df["mejora_recuento"].isin(selec_mejora))
+        (df["year_3"] >= antiguedad) &
+        (df["impacto_recuento"] >= selec_impacto) &
+        (df["mejora_recuento"] >= selec_mejora)
     ]
     
     # Mostrar el número de entidades y la suma de empleados
