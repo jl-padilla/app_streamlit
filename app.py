@@ -16,7 +16,7 @@ st.set_page_config(
 )
 
 # Carga y procesamiento de datos
-df = pd.read_csv("data/datos_rsa_limpio_final.csv")
+df = pd.read_csv("data/datos_rsa_limpio_final_2.csv")
 df_clasificado = df[["id_cliente",
                      "id_formulario",
                       "tipo_organizacion",
