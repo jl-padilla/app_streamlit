@@ -22,17 +22,17 @@ def map(df):
     selec_tipo_organizacion = st.multiselect("Seleccionar tipo de organización", 
                                             options = sorted(df["tipo_organizacion"].dropna().unique()),
                                             default = sorted(df["tipo_organizacion"].dropna().unique()))
-    antiguedad = st.multiselect("Seleccionar antiguedad de la entidad",
+    antiguedad = st.slider("Seleccionar antiguedad de la entidad",
                                 min_value= 1542,
                                 max_value= 2024,
                                 value = 2024
                                 )
-    selec_impacto = st.multiselect("Seleccionar impacto de la actividad",
+    selec_impacto = st.slider("Seleccionar impacto de la actividad",
                                    min_value = 6,
                                    max_value = 1896,
                                    value = 1896
                                    )
-    selec_mejora = st.multiselect("Seleccionar mejora", 
+    selec_mejora = st.slider("Seleccionar mejora", 
                                   min_value = 1,
                                   max_value = 122,
                                   value = 122
