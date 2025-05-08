@@ -26,7 +26,7 @@ def map(df):
                                 options = sorted(df["year_3"].dropna().unique()),
                                 default = sorted(df["year_3"].dropna().unique()))
     selec_impacto = st.multiselect("Seleccionar impacto de la actividad",
-                                   options = sorted(df["impacto_recuento"].dropna()unique()),
+                                   options = sorted(df["impacto_recuento"].dropna().unique()),
                                    default = sorted(df["impacto_recuento"].dropna().unique()))
     selec_mejora = st.multiselect("Seleccionar mejora", 
                                   options = sorted(df["mejora"].dropna().unique()),
