@@ -27,12 +27,12 @@ def map(df):
                                 max_value= 2024,
                                 value = 2024
                                 )
-    selec_impacto = st.slider("Seleccionar impacto de la actividad",
+    selec_impacto = st.slider("Seleccionar escala de impacto de la actividad en el medioambiente",
                                    min_value = 6,
                                    max_value = 1896,
                                    value = 1896
                                    )
-    selec_mejora = st.slider("Seleccionar mejora", 
+    selec_mejora = st.slider("Seleccionar escala de mejora de la entidad", 
                                   min_value = 1,
                                   max_value = 122,
                                   value = 122
@@ -50,7 +50,12 @@ def map(df):
     
     # Mostrar el número de entidades y la suma de empleados
     num_entidades = df_filtrado.shape[0]
-    st.write(f"🔹 **Número total de entidades que cumplen la selección:** {num_entidades}")
+    # Mostrar en un cuadro destacado
+    st.metric(label="🔹 Número total de entidades", value=num_entidades)
+    num_empleados = df_filtrado["empleados_2"].sum()
+    # Mostrar en un cuadro destacado
+    st.metric(label="🔹 Número total de empleados", value=num_empleados)
+
 
 
     # Si el dataframe filtrado está vacío, evitar errores
@@ -63,7 +68,7 @@ def map(df):
         "html": """
         <b>Ubicación:</b> {nombre_organizacion}<br>
         <b>Dirección:</b> {direccion_completa}<br>
-        <b>Operador:</b> <a href='https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' target='_blank'>Ver detalles</a><br>
+        <b>Operador:</b> 'https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' <br>
         """,
         "style": {
             "backgroundColor": "salmon",
