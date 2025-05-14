@@ -11,7 +11,7 @@ st.cache_data.clear() # Si tienes problemas con la cache, descomenta esta linea
 st.set_page_config(
     page_title="Exploratory Data Analysis: Analisis medioambiental RSA2025",
     page_icon=":zap:",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
 )
 
@@ -35,7 +35,7 @@ df_clasificado = df[["id_cliente",
 
 
 # Título de la aplicación
-st.header(f"My Streamlit APP - Project RSA202")
+st.header(f"My Streamlit APP - Project RSA2025")
 
 # st.image("img/rsa.jpg", width=700)
 
@@ -65,7 +65,9 @@ with st.expander("About the proyect", expanded=True):
 # Sistema de navegación
 option = st.sidebar.selectbox(
     "Page:",
-    ("Home", "Map", "Charts"),
+    ("Home", "Map", "Results"),
+    "Pagina:",
+    ("Casa", "Mapa", "Resltados")
 )
 
 # Lógica para navegar entre las páginas
