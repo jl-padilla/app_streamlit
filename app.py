@@ -7,17 +7,17 @@ import functions as functions
 st.cache_data.clear() # Si tienes problemas con la cache, descomenta esta linea
 
 
-# Define el estilo CSS para el fondo verde
-page_bg_color = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-color: #90EE90;  /* Verde claro */
-}
-</style>
-"""
+# # Define el estilo CSS para el fondo verde
+# page_bg_color = """
+# <style>
+# [data-testid="stAppViewContainer"] {
+#     background-color: #90EE90;  /* Verde claro */
+# }
+# </style>
+# """
 
-# Aplica el estilo
-st.markdown(page_bg_color, unsafe_allow_html=True)
+# # Aplica el estilo
+# st.markdown(page_bg_color, unsafe_allow_html=True)
 
 
 
