@@ -5,8 +5,8 @@ import pydeck as pdk
 
 def home(df):
     st.image("img/rsa.jpg",
-         caption= "Follow me on LinkedIn https://www.linkedin.com/in/joseluispadillavillanova/",
-         width= 100)
+         caption= "Follow the  https://www.linkedin.com/pulse/proyecto-eda-exploratory-data-analysis-jose-luis-padilla-villanova-eccbf/?trackingId=bFOeHOQNmhyQpXCRYKoagA%3D%3D",
+         width= 500)
     
     with st.expander("Datos iniciales(1570):"):
         # with st.echo(code_location='below'):
@@ -18,34 +18,31 @@ def home(df):
 
 def map(df):
     # Mostrar el slider de seleccion **antes de filtrar los datos**
-    prioridad_minima = st.slider("Filtrar por la prioridad ambiental que determina la entidad", min_value=1, max_value=10, value=1)
+    prioridad_minima = st.slider("Prioridad ambiental(siendo 1:más importente-10:menos importante)", min_value=1, max_value=10, value=1)
     selec_tipo_organizacion = st.multiselect("Seleccionar tipo de organización", 
                                             options = sorted(df["tipo_organizacion"].dropna().unique()),
                                             default = sorted(df["tipo_organizacion"].dropna().unique()))
-    antiguedad = st.slider("Seleccionar antiguedad de la entidad",
-                                min_value= 1542,
-                                max_value= 2024,
-                                value = 2024
-                                )
-    selec_impacto = st.slider("Seleccionar escala de impacto de la actividad en el medioambiente",
-                                   min_value = 6,
-                                   max_value = 1896,
-                                   value = 1896
-                                   )
-    selec_mejora = st.slider("Seleccionar escala de mejora de la entidad", 
-                                  min_value = 1,
-                                  max_value = 122,
-                                  value = 122
-                                  )
+    # antiguedad = st.slider("Seleccionar antiguedad de la entidad",
+    #                             min_value= 1542,
+    #                             max_value= 2024,
+    #                             value = 2024
+    #                             )
+    # selec_impacto = st.slider("Seleccionar escala de impacto de la actividad en el medioambiente",
+    #                                min_value = 6,
+    #                                max_value = 1896,
+    #                                value = 1896
+    #                                )
+    # selec_mejora = st.slider("Seleccionar escala de mejora de la entidad", 
+    #                               min_value = 1,
+    #                               max_value = 122,
+    #                               value = 122
+    #                               )
 
 
     # Filtrar el dataframe con las condiciones seleccionadas
     df_filtrado = df[
-        (df["prioridad_medioambiental"] >= prioridad_minima) &
-        (df["tipo_organizacion"].isin(selec_tipo_organizacion)) &
-        (df["year_3"] >= antiguedad) &
-        (df["impacto_recuento"] >= selec_impacto) &
-        (df["mejora_recuento"] >= selec_mejora)
+        (df["prioridad_medioambiental"] <= prioridad_minima) &
+        (df["tipo_organizacion"].isin(selec_tipo_organizacion))
     ]
     
     # Mostrar el número de entidades y la suma de empleados
@@ -68,6 +65,12 @@ def map(df):
         "html": """
         <b>Ubicación:</b> {nombre_organizacion}<br>
         <b>Dirección:</b> {direccion_completa}<br>
+        <b>Tipo de organización:</b> {tipo_organizacion}<br>
+        <b>Prioridad ambiental:</b> {prioridad_medioambiental}<br>
+        <b>Antigüedad:</b> {year_3}<br>
+        <b>Empleados:</b> {empleados_2}<br>
+        <b>Impacto de la actividad (recuento):</b> {impacto_recuento}<br>
+        <b>Mejora (recuento):</b> {mejora_recuento}<br>
         <b>Operador:</b> 'https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' <br>
         """,
         "style": {
