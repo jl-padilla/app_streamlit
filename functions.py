@@ -6,7 +6,7 @@ import pydeck as pdk
 def home(df):
     st.image("img/rsa.jpg",
          caption= "Follow me on LinkedIn https://www.linkedin.com/in/joseluispadillavillanova/",
-         width= 1000)
+         width= 100)
     
     with st.expander("Datos iniciales(1570):"):
         # with st.echo(code_location='below'):
