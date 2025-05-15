@@ -44,7 +44,7 @@ st.header(f"My Streamlit APP - Project RSA2025")
 with st.expander("About the proyect", expanded=True):
     st.write(
         "A company specializing in environmental business consulting wants to compile a list of potential clients for its marketing department at its headquarters in Aragon."
-        "The annual call for applications for the 2025 Aragon Social Responsibility Seal is a recognition for companies in Aragon. " \
+        "The annual call for applications for the 2025 Aragon Social Responsibility Seal is a recognition for companies in Aragon. "
         "It publishes details of the entities that have earned it on its freely accessible website. "
         "In addition, a form is available, filled out by the company, which includes both its contact information and relevant data to determine if the entity could be a future client of our services. " \
         "Based on these 1,573 entities and the information provided, we propose identifying a group of entities that fit the profile of an entity interested in the environment and with improvement needs that we can cover with our services. "
@@ -65,15 +65,12 @@ with st.expander("About the proyect", expanded=True):
 # Sistema de navegación
 option = st.sidebar.selectbox(
     "Page:",
-    ("Home", "Map", "Results"),
-    "Pagina:",
-    ("Casa", "Mapa", "Resltados")
-)
+    ("Home", "Map", "Results"))
 
 # Lógica para navegar entre las páginas
 if option == "Home":
     functions.home(df_clasificado)
 elif option=="Map":
     functions.map(df_clasificado)
-elif option=="Charts":
+elif option=="Results":
     functions.charts(df)
