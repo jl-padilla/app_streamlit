@@ -57,12 +57,12 @@ st.header(f"My Streamlit APP - Project RSA2025")
 
 with st.expander("About the proyect", expanded=True):
     st.write(
-        "Quiero compartir los resultados de mi análisis de datos de las 1573 entidades que han obtenido el sello RSA 2025 en Aragón en [la página web] (https://www.aragonempresa.com/empresas-sello-rsa/) centrado en determinar un nicho de entidades potenciales clientes de nuestros servicios medioambientales."
+        "Quiero compartir los resultados de mi análisis de datos de las 1573 entidades que han obtenido el sello RSA 2025 en Aragón en [la página web](https://www.aragonempresa.com/empresas-sello-rsa/) centrado en determinar un nicho de entidades potenciales clientes de nuestros servicios medioambientales."
         "Es interesante ver el mapa de las entidades y conocer sus perfiles respecto a la prioridad que otorgan al medioambiente, para ello accede a mapa."
         "No menos interesante, disponer de un listado de resultados de las entidades seleccionadas con las variables mas determinantes para una prospección comercial exitosa basándonos en nuestro objetivo, para ello accede a resultados."
         "Finalmente, basándonos en nuestro modelo te propongo un juego, dime los datos de tu entidad y te puedo predecir tu prioridad medioambiental." 
-        "Si te interesa la parte técnica del análisis de datos te recomiendo des un vistazo a mis artículos relacionados [aquí] (https://www.linkedin.com/pulse/proyecto-eda-exploratory-data-analysis-jose-luis-padilla-villanova-eccbf/?trackingId=bFOeHOQNmhyQpXCRYKoagA%3D%3D)"
-        "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."
+        "Si te interesa la parte técnica del análisis de datos te recomiendo des un vistazo a mis artículos relacionados [aquí](https://www.linkedin.com/pulse/proyecto-eda-exploratory-data-analysis-jose-luis-padilla-villanova-eccbf/?trackingId=bFOeHOQNmhyQpXCRYKoagA%3D%3D)"
+        "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."/
         "Gracias por tu atención 😊"
     )
 # uploaded_file = st.sidebar.file_uploader(
@@ -81,10 +81,10 @@ with st.expander("About the proyect", expanded=True):
 # Sistema de navegación
 option = st.sidebar.selectbox(
     "Page:",
-    ("Home", "Mapa", "Resultados", "Predicción"))
+    ("Datos iniciales", "Mapa", "Resultados", "Predicción"))
 
 # Lógica para navegar entre las páginas
-if option == "Home":
+if option == "Datos iniciales":
     functions.home(df_clasificado)
 elif option=="Mapa":
     functions.map(df_clasificado)

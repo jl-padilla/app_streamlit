@@ -84,6 +84,7 @@ def map(df):
         green = int((10 - prioridad) / 9 * 255)  # Menos prioridad → más verde
         return [red, green, 0, 200]  # RGB con opacidad
 
+    df_filtrado["color"] = df_filtrado["prioridad_medioambiental"].apply(get_color)
 
 
     # Crear capa del mapa con puntos filtrados
@@ -94,7 +95,7 @@ def map(df):
         pickable=True,
         opacity=0.8,
         filled=True,
-        get_fill_color=["prioridad_medioambiental"].apply(get_color),  # Colores dinámicos
+        get_fill_color="color",  # Colores dinámicos
         radius_min_pixels=5)
     
 
