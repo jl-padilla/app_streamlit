@@ -62,7 +62,7 @@ with st.expander("About the proyect", expanded=True):
         "No menos interesante, disponer de un listado de resultados de las entidades seleccionadas con las variables mas determinantes para una prospección comercial exitosa basándonos en nuestro objetivo, para ello accede a resultados."
         "Finalmente, basándonos en nuestro modelo te propongo un juego, dime los datos de tu entidad y te puedo predecir tu prioridad medioambiental." 
         "Si te interesa la parte técnica del análisis de datos te recomiendo des un vistazo a mis artículos relacionados [aquí](https://www.linkedin.com/pulse/proyecto-eda-exploratory-data-analysis-jose-luis-padilla-villanova-eccbf/?trackingId=bFOeHOQNmhyQpXCRYKoagA%3D%3D)"
-        "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."/
+        "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."
         "Gracias por tu atención 😊"
     )
 # uploaded_file = st.sidebar.file_uploader(
