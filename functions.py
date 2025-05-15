@@ -18,8 +18,8 @@ def home(df):
 
 def map(df):
     # Mostrar el slider de seleccion **antes de filtrar los datos**
-    prioridad_minima = st.slider("Prioridad ambiental(siendo 1:más importente-10:menos importante)", min_value=1, max_value=10, value=1)
-    selec_tipo_organizacion = st.multiselect("Seleccionar tipo de organización", 
+    prioridad_minima = st.slider("Filtro de prioridad ambiental mínima (siendo 1:más importente-10:menos importante)", min_value=1, max_value=10, value=10)
+    selec_tipo_organizacion = st.multiselect("Selecciona tipo de organización", 
                                             options = sorted(df["tipo_organizacion"].dropna().unique()),
                                             default = sorted(df["tipo_organizacion"].dropna().unique()))
     # antiguedad = st.slider("Seleccionar antiguedad de la entidad",
@@ -63,21 +63,28 @@ def map(df):
     # Definir tooltip con información clave
     tooltip = {
         "html": """
-        <b>Ubicación:</b> {nombre_organizacion}<br>
-        <b>Dirección:</b> {direccion_completa}<br>
-        <b>Tipo de organización:</b> {tipo_organizacion}<br>
-        <b>Prioridad ambiental:</b> {prioridad_medioambiental}<br>
-        <b>Antigüedad:</b> {year_3}<br>
-        <b>Empleados:</b> {empleados_2}<br>
-        <b>Impacto de la actividad (recuento):</b> {impacto_recuento}<br>
-        <b>Mejora (recuento):</b> {mejora_recuento}<br>
-        <b>Operador:</b> 'https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' <br>
-        """,
-        "style": {
-            "backgroundColor": "salmon",
-            "color": "white"
-        }
-    }
+        <div style='background-color:rgba(50,50,50,0.8); color:white; padding:10px; border-radius:5px;'>
+            <b>Ubicación:</b> {nombre_organizacion}<br>
+            <b>Dirección:</b> {direccion_completa}<br>
+            <b>Tipo de organización:</b> {tipo_organizacion}<br>
+            <b>Prioridad ambiental:</b> {prioridad_medioambiental}<br>
+            <b>Antigüedad:</b> {year_3}<br>
+            <b>Empleados:</b> {empleados_2}<br>
+            <b>Impacto de la actividad (recuento):</b> {impacto_recuento}<br>
+            <b>Mejora (recuento):</b> {mejora_recuento}<br>
+            <b>Operador:</b> 'https://www.aragonempresa.com/empresas-sello-rsa/imprimir.php?idusuario={id_cliente}&idencuesta={id_formulario}' <br>
+        </div>
+        """,}
+    
+    def get_color(prioridad):
+        """
+        Mapea la prioridad (1=verde, 10=rojo) a colores RGB.
+        """
+        red = int((prioridad - 1) / 9 * 255)  # Más prioridad → más rojo
+        green = int((10 - prioridad) / 9 * 255)  # Menos prioridad → más verde
+        return [red, green, 0, 200]  # RGB con opacidad
+
+
 
     # Crear capa del mapa con puntos filtrados
     layer = pdk.Layer(
@@ -87,9 +94,9 @@ def map(df):
         pickable=True,
         opacity=0.8,
         filled=True,
-        get_fill_color=[255, 0, 0, 200],  # Add a visible color (red)
-        radius_min_pixels=5,  # Ensure minimum size for visibility
-    )
+        get_fill_color=["prioridad_medioambiental"].apply(get_color),  # Colores dinámicos
+        radius_min_pixels=5)
+    
 
     # Definir estado de la vista
     view_state = pdk.ViewState(

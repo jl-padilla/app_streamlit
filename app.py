@@ -57,11 +57,13 @@ st.header(f"My Streamlit APP - Project RSA2025")
 
 with st.expander("About the proyect", expanded=True):
     st.write(
-        "A company specializing in environmental business consulting wants to compile a list of potential clients for its marketing department at its headquarters in Aragon."
-        "The annual call for applications for the 2025 Aragon Social Responsibility Seal is a recognition for companies in Aragon. "
-        "It publishes details of the entities that have earned it on its freely accessible website. "
-        "In addition, a form is available, filled out by the company, which includes both its contact information and relevant data to determine if the entity could be a future client of our services. " \
-        "Based on these 1,573 entities and the information provided, we propose identifying a group of entities that fit the profile of an entity interested in the environment and with improvement needs that we can cover with our services. "
+        "Quiero compartir los resultados de mi análisis de datos de las 1573 entidades que han obtenido el sello RSA 2025 en Aragón en [la página web] (https://www.aragonempresa.com/empresas-sello-rsa/) centrado en determinar un nicho de entidades potenciales clientes de nuestros servicios medioambientales."
+        "Es interesante ver el mapa de las entidades y conocer sus perfiles respecto a la prioridad que otorgan al medioambiente, para ello accede a mapa."
+        "No menos interesante, disponer de un listado de resultados de las entidades seleccionadas con las variables mas determinantes para una prospección comercial exitosa basándonos en nuestro objetivo, para ello accede a resultados."
+        "Finalmente, basándonos en nuestro modelo te propongo un juego, dime los datos de tu entidad y te puedo predecir tu prioridad medioambiental." 
+        "Si te interesa la parte técnica del análisis de datos te recomiendo des un vistazo a mis artículos relacionados [aquí] (https://www.linkedin.com/pulse/proyecto-eda-exploratory-data-analysis-jose-luis-padilla-villanova-eccbf/?trackingId=bFOeHOQNmhyQpXCRYKoagA%3D%3D)"
+        "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."
+        "Gracias por tu atención 😊"
     )
 # uploaded_file = st.sidebar.file_uploader(
 #     "Choose a file (must be ';' separated)", type=["csv"]
@@ -79,12 +81,14 @@ with st.expander("About the proyect", expanded=True):
 # Sistema de navegación
 option = st.sidebar.selectbox(
     "Page:",
-    ("Home", "Map", "Results"))
+    ("Home", "Mapa", "Resultados", "Predicción"))
 
 # Lógica para navegar entre las páginas
 if option == "Home":
     functions.home(df_clasificado)
-elif option=="Map":
+elif option=="Mapa":
     functions.map(df_clasificado)
-elif option=="Results":
+elif option=="Resultadoss":
     functions.charts(df)
+elif option=="Predicción":
+    functions.prediccion(df)
