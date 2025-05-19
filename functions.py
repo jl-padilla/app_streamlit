@@ -18,7 +18,12 @@ def home(df):
 
 def map(df):
     # Mostrar el slider de seleccion **antes de filtrar los datos**
-    prioridad_minima = st.slider("Filtro de prioridad ambiental mínima (siendo 1:más importente-10:menos importante)", min_value=1, max_value=10, value=10)
+    prioridad_minima = st.slider(
+    "🔍 Filtro de prioridad ambiental mínima (1 = 🟩 Alta prioridad, 10 = 🟥 Baja prioridad)",
+    min_value=1, max_value=10, value=10
+)
+
+
     selec_tipo_organizacion = st.multiselect("Selecciona tipo de organización", 
                                             options = sorted(df["tipo_organizacion"].dropna().unique()),
                                             default = sorted(df["tipo_organizacion"].dropna().unique()))
@@ -120,42 +125,44 @@ def map(df):
 
 
 
-def charts(df):
-    left, right = st.columns(2)
+def resultados(df):
+    df_objetivo = df[df["cluster"] == 6]
+    df_objetivo = df_objetivo[["id_cliente",
+                                "id_formulario",
+                                "tipo_organizacion",
+                                "nombre_organizacion",
+                                "direccion_completa",
+                                "persona_contacto",
+                                "email_contacto",
+                                "pagina-web",
+                                "prioridad_medioambiental", 
+                                "impacto_actividad",
+                                "impacto_recuento", 
+                                "mejora",
+                                "mejora_recuento", 
+                                "clasificacion" ]].sort_values(by="prioridad_medioambiental", ascending=True).sort_values(by="mejora_recuento", ascending=True)
+    
+    # Selector de entidad:
+    seleccion = st.selectbox("Selecciona una entidad", df_objetivo["nombre_organizacion"])
+    # Filtrar datos de la entidad seleccionada
+    entity_data = df_objetivo[df_objetivo["nombre_organizacion"] == seleccion].iloc[0]
+    # Mostrar datos visualmente
+    st.subheader(f"📌 Información de {seleccion}")
+    st.write(f"**Nombre:** {entity_data['nombre_organizacion']}")
+    st.write(f"**Dirección:** {entity_data['direccion_completa']}")
+    st.write(f"**Persona de contacto:** {entity_data['persona_contacto']}")
+    st.write(f"**Email de contacto:** {entity_data['email_contacto']}")
+    st.write(f"**Página web:** {entity_data['pagina-web']}")
+    st.write(f"**Prioridad ambiental:** {entity_data['prioridad_medioambiental']}")
+    st.write(f"**Impacto de la actividad:** {entity_data['impacto_actividad']}")
+    st.write(f"**Impacto de la actividad (recuento):** {entity_data['impacto_recuento']}")
+    st.write(f"**Mejora:** {entity_data['mejora']}")
+    st.write(f"**Mejora (recuento):** {entity_data['mejora_recuento']}")
+    st.write(f"**Clasificación:** {entity_data['clasificacion']}")
+    st.write(f"**Número de empleados:** {entity_data['Empleados']}")
+    st.write(f"**Ubicación:** {entity_data['Ubicación']}"
 
-    with left:
-
-        df_group_carg = df.groupby("DISTRITO")["NUM_EQUIPOS"].sum().reset_index().sort_values(by="NUM_EQUIPOS", ascending=False)
-        st.header("Cargadores por distrito")
-        # st.bar_chart(df_group_carg, 
-        #             x="DISTRITO",
-        #             y="NUM_EQUIPOS",
-        #             x_label="Distrito",
-        #             y_label="Cargadores")
-
-        chart_distrito = alt.Chart(df_group_carg).mark_bar().encode(
-            x=alt.X('DISTRITO', sort=None, title='Distrito'),
-            y=alt.Y('NUM_EQUIPOS', title='Cargadores')
-        )
-
-        st.altair_chart(chart_distrito, use_container_width=True)
 
 
-    with right:
 
-        # Visualizaciones - Cargadores por Operador
-        st.header("Cargadores por Operador")
-        df_group_oper = df.groupby("OPERADOR")[["NUM_EQUIPOS"]].sum().reset_index().sort_values(by="NUM_EQUIPOS", ascending=False)
-        # st.bar_chart(data = df_group_oper, 
-        #             x="OPERADOR", 
-        #             y="NUM_EQUIPOS",
-        #             x_label="Operador",
-        #             y_label="Cargadores")
-
-
-        chart_operador = alt.Chart(df_group_oper).mark_bar().encode(
-            x=alt.X('OPERADOR', sort=None, title='Operador'),
-            y=alt.Y('NUM_EQUIPOS', title='Cargadores')
-        )
-
-        st.altair_chart(chart_operador, use_container_width=True)
+ 
