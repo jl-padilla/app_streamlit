@@ -160,7 +160,7 @@ def resultados(df):
     st.write(f"**Mejora (recuento):** {entity_data['mejora_recuento']}")
     st.write(f"**Clasificación:** {entity_data['clasificacion']}")
     st.write(f"**Número de empleados:** {entity_data['Empleados']}")
-    st.write(f"**Ubicación:** {entity_data['Ubicación']}"
+    st.write(f"**Ubicación:** {entity_data['Ubicación']}")
 
 
 
