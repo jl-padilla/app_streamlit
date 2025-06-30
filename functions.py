@@ -128,6 +128,11 @@ def map(df):
 import streamlit as st
 
 def resultados(df):
+    with st.expander("Datos resultado:"):
+        
+        st.dataframe(df)
+
+#def resultados(df):
     # Verificar si hay datos
     if df.empty:
         st.warning("⚠️ El DataFrame está vacío.")
