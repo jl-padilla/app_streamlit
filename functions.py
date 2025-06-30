@@ -125,42 +125,51 @@ def map(df):
 
 
 
+import streamlit as st
+
 def resultados(df):
-    
-    df_objetivo = df_objetivo[["id_cliente",
-                                "id_formulario",
-                                "tipo_organizacion",
-                                "nombre_organizacion",
-                                "direccion_completa",
-                                "persona_contacto",
-                                "email_contacto",
-                                "pagina-web",
-                                "prioridad_medioambiental", 
-                                "impacto_actividad",
-                                "impacto_recuento", 
-                                "mejora",
-                                "mejora_recuento", 
-                                "clasificacion" ]].sort_values(by="prioridad_medioambiental", ascending=True).sort_values(by="mejora_recuento", ascending=True)
-    
-    # Selector de entidad:
-    seleccion = st.selectbox("Selecciona una entidad", df_objetivo["nombre_organizacion"])
+    # Verificar si hay datos
+    if df.empty:
+        st.warning("⚠️ El DataFrame está vacío.")
+        return
+
+    # Asegurarse de que las columnas necesarias existen
+    columnas_necesarias = [
+        "id_cliente", "id_formulario", "tipo_organizacion", "nombre_organizacion",
+        "direccion_completa", "persona_contacto", "email_contacto", "pagina-web",
+        "prioridad_medioambiental", "impacto_actividad", "impacto_recuento",
+        "mejora", "mejora_recuento", "clasificacion", "Empleados", "Ubicación"
+    ]
+    columnas_disponibles = [col for col in columnas_necesarias if col in df.columns]
+    df_objetivo = df[columnas_disponibles]
+
+    # Ordenar por prioridad y mejora
+    df_objetivo = df_objetivo.sort_values(
+        by=["prioridad_medioambiental", "mejora_recuento"],
+        ascending=[True, True]
+    )
+
+    # Selector de entidad
+    seleccion = st.selectbox("Selecciona una entidad", df_objetivo["nombre_organizacion"].dropna().unique())
+
     # Filtrar datos de la entidad seleccionada
     entity_data = df_objetivo[df_objetivo["nombre_organizacion"] == seleccion].iloc[0]
+
     # Mostrar datos visualmente
     st.subheader(f"📌 Información de {seleccion}")
-    st.write(f"**Nombre:** {entity_data['nombre_organizacion']}")
-    st.write(f"**Dirección:** {entity_data['direccion_completa']}")
-    st.write(f"**Persona de contacto:** {entity_data['persona_contacto']}")
-    st.write(f"**Email de contacto:** {entity_data['email_contacto']}")
-    st.write(f"**Página web:** {entity_data['pagina-web']}")
-    st.write(f"**Prioridad ambiental:** {entity_data['prioridad_medioambiental']}")
-    st.write(f"**Impacto de la actividad:** {entity_data['impacto_actividad']}")
-    st.write(f"**Impacto de la actividad (recuento):** {entity_data['impacto_recuento']}")
-    st.write(f"**Mejora:** {entity_data['mejora']}")
-    st.write(f"**Mejora (recuento):** {entity_data['mejora_recuento']}")
-    st.write(f"**Clasificación:** {entity_data['clasificacion']}")
-    st.write(f"**Número de empleados:** {entity_data['Empleados']}")
-    st.write(f"**Ubicación:** {entity_data['Ubicación']}")
+    st.write(f"**Nombre:** {entity_data.get('nombre_organizacion', 'No disponible')}")
+    st.write(f"**Dirección:** {entity_data.get('direccion_completa', 'No disponible')}")
+    st.write(f"**Persona de contacto:** {entity_data.get('persona_contacto', 'No disponible')}")
+    st.write(f"**Email de contacto:** {entity_data.get('email_contacto', 'No disponible')}")
+    st.write(f"**Página web:** {entity_data.get('pagina-web', 'No disponible')}")
+    st.write(f"**Prioridad ambiental:** {entity_data.get('prioridad_medioambiental', 'No disponible')}")
+    st.write(f"**Impacto de la actividad:** {entity_data.get('impacto_actividad', 'No disponible')}")
+    st.write(f"**Impacto de la actividad (recuento):** {entity_data.get('impacto_recuento', 'No disponible')}")
+    st.write(f"**Mejora:** {entity_data.get('mejora', 'No disponible')}")
+    st.write(f"**Mejora (recuento):** {entity_data.get('mejora_recuento', 'No disponible')}")
+    st.write(f"**Clasificación:** {entity_data.get('clasificacion', 'No disponible')}")
+    st.write(f"**Número de empleados:** {entity_data.get('Empleados', 'No disponible')}")
+    st.write(f"**Ubicación:** {entity_data.get('Ubicación', 'No disponible')}")
 
 
 
