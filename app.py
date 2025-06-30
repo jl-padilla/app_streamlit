@@ -7,20 +7,6 @@ import functions as functions
 st.cache_data.clear() # Si tienes problemas con la cache, descomenta esta linea
 
 
-# # Define el estilo CSS para el fondo verde
-# page_bg_color = """
-# <style>
-# [data-testid="stAppViewContainer"] {
-#     background-color: #90EE90;  /* Verde claro */
-# }
-# </style>
-# """
-
-# # Aplica el estilo
-# st.markdown(page_bg_color, unsafe_allow_html=True)
-
-
-
 # Configuración inicial del proyecto
 st.set_page_config(
     page_title="Exploratory Data Analysis: Analisis medioambiental RSA2025",
@@ -47,14 +33,15 @@ df_clasificado = df[["id_cliente",
                       "mejora_recuento", 
                       "clasificacion" ]]
 
+# Carga y procesamiento de resultados
+df_resultados = pd.read_csv("data/datos_rsa_merget_df.csv")
+
 
 # Título de la aplicación
 st.header(f"My Streamlit APP - Project RSA2025")
 
-# st.image("img/rsa.jpg", width=700)
 
-
-
+# Descripción del proyecto
 with st.expander("About the proyect", expanded=True):
     st.write(
         "Quiero compartir los resultados de mi análisis de datos de las 1573 entidades que han obtenido el sello RSA 2025 en Aragón en [la página web](https://www.aragonempresa.com/empresas-sello-rsa/) centrado en determinar un nicho de entidades potenciales clientes de nuestros servicios medioambientales."
@@ -65,18 +52,6 @@ with st.expander("About the proyect", expanded=True):
         "Espero disfrutes y si tienes alguna duda o sugerencia no dudes en [contactarme](https://www.linkedin.com/in/joseluispadillavillanova/)."
         "Gracias por tu atención 😊"
     )
-# uploaded_file = st.sidebar.file_uploader(
-#     "Choose a file (must be ';' separated)", type=["csv"]
-#     )
-
-# if uploaded_file is not None:
-#     try:
-#         df = pd.read_csv(uploaded_file, sep=";")
-#         st.balloons()
-#     except:
-#         st.write("File format not recognized.")
-
-# st.dataframe(df)
 
 # Sistema de navegación
 option = st.sidebar.selectbox(
@@ -89,6 +64,6 @@ if option == "Datos iniciales":
 elif option=="Mapa":
     functions.map(df_clasificado)
 elif option=="Resultadoss":
-    functions.charts(df)
+    functions.resultados(df_resultados)
 elif option=="Predicción":
     functions.prediccion(df)

@@ -126,7 +126,7 @@ def map(df):
 
 
 def resultados(df):
-    df_objetivo = df[df["cluster"] == 6]
+    
     df_objetivo = df_objetivo[["id_cliente",
                                 "id_formulario",
                                 "tipo_organizacion",
