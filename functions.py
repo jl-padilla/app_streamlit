@@ -128,7 +128,7 @@ def map(df):
 import streamlit as st
 
 def resultados(df):
-    st.expander("Datos resultado:"):
+    st.expander("Datos resultado:")
     st.dataframe(df)
 
 #def resultados(df):
